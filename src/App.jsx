@@ -61,8 +61,6 @@ function App() {
         code: "Enter",
       });
 
-
-      
       hanldeKeyDown(enterKeyEvent);
     } else if (newValue === "Del") {
       const delKeyEvent = new KeyboardEvent("keydown", {
