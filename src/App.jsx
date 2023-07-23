@@ -60,6 +60,9 @@ function App() {
         keyCode: 13,
         code: "Enter",
       });
+
+
+      
       hanldeKeyDown(enterKeyEvent);
     } else if (newValue === "Del") {
       const delKeyEvent = new KeyboardEvent("keydown", {
