@@ -12,7 +12,13 @@ function Keyboard(props) {
     <>
       <div className="flex flex-col gap-2">
         {keys.map((key, index) => (
-          <KeyRow key={index} row={key} keyHandler={props.keyHandler} />
+          <KeyRow
+            key={index}
+            row={key}
+            keyHandler={props.keyHandler}
+            correctWord={props.correctWord}
+            words={props.words}
+          />
         ))}
       </div>
     </>

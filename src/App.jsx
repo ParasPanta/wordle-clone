@@ -1,6 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 import Box from "./components/Preview/Box";
 import Popup from "./components/Popup/Popup";
@@ -19,6 +17,8 @@ function App() {
   const [isDisabled, setIsDisabled] = useState(false);
   const [isWin, setIsWin] = useState(false);
 
+  const staticMessage = "Testing for any errors";
+
   let correctWord = fiveLetterWords[randomIndex].word.toUpperCase();
   // console.log(fiveLetterWords[randomIndex].word);
 
@@ -36,6 +36,7 @@ function App() {
 
   const handleInputChange = (e) => {
     const newWords = [...words];
+    // console.log(e);
     let newValue = e.target.value;
 
     newValue = newValue.replace(/[^a-zA-Z]/g, "");
@@ -44,15 +45,33 @@ function App() {
     setWords(newWords);
   };
 
+  // console.log(String(words).split(',').join(""))
+
   const handleKeyClick = (e) => {
     const newWords = [...words];
-    // console.log(e.target.textContent);
+    console.log(e.target.textContent);
     let newValue = e.target.textContent;
 
     // newValue = newValue.replace(/[^a-zA-Z]/g, "");
 
-    if (newWords[turn[0]].length < 5) newWords[turn[0]] += newValue;
-    setWords(newWords);
+    if (newValue === "Enter") {
+      const enterKeyEvent = new KeyboardEvent("keydown", {
+        key: "Enter",
+        keyCode: 13,
+        code: "Enter",
+      });
+      hanldeKeyDown(enterKeyEvent);
+    } else if (newValue === "Del") {
+      const delKeyEvent = new KeyboardEvent("keydown", {
+        key: "Backspace",
+        keyCode: 8,
+        code: "Backspace",
+      });
+      hanldeKeyDown(delKeyEvent);
+    } else {
+      if (newWords[turn[0]].length < 5) newWords[turn[0]] += newValue;
+      setWords(newWords);
+    }
   };
 
   const hanldeKeyDown = (e) => {
@@ -60,12 +79,37 @@ function App() {
 
     const newTurn = [...turn];
     // console.log(newTurn[0]);
+
+    if (words[turn[0]].length > 0 && words[turn[0]].length < 6) {
+      if (e.key === "Backspace") {
+        const newValue = [...words];
+        const newWord = newValue[turn[0]].slice(0, -1);
+        newValue[0] = newWord;
+        setWords(newValue);
+      }
+    }
+
     if (words[turn[0]].length === 5) {
       if (e.key === "Enter") {
         newTurn[0]++;
         setTurn(newTurn);
       }
     }
+  };
+
+  const handleButtonClick = (keyName) => {
+    const enterKeyEvent = new KeyboardEvent("keydown", {
+      key: "Enter",
+      keyCode: 13,
+      code: "Enter",
+    });
+    const delKeyEvent = new KeyboardEvent("keydown", {
+      key: "Backspace",
+      keyCode: 8,
+      code: "Backspace",
+    });
+    if (keyName === "Enter") inputRef.current.dispatchEvent(enterKeyEvent);
+    if (keyName === "Del") inputRef.current.dispatchEvent(delKeyEvent);
   };
 
   const handleNewGame = () => {
@@ -107,7 +151,8 @@ function App() {
           correctWord={correctWord}
           turn={turn}
           setTurn={setTurn}
-          // keyHandler={handleKeyClick}
+          keyHandler={handleKeyClick}
+          errMessage={staticMessage}
         />
       </div>
 
