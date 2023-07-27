@@ -1,0 +1,16 @@
+:root {
+  --color: green;
+}
+/* 
+.hover-animate {
+  position: relative;
+  background-color: aqua;
+}
+
+.hover-animate:nth-child(1) {
+  height: 2px;
+  width: 100%;
+  background-color: var(--color);
+  position: absolute;
+  left: -100%;
+} */

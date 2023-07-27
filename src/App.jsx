@@ -5,6 +5,8 @@ import Popup from "./components/Popup/Popup";
 import fiveLetterWords from "./assets/words";
 import getRandomNumber from "./utils/RandomNumberGenerator";
 
+import "./styles/animation.css";
+
 function App() {
   // const wordleState = ["grail", "track", "cramp", "crabs", "crazy", "craze"];
   const wordleState = ["", "", "", "", "", ""];
@@ -45,11 +47,22 @@ function App() {
     setWords(newWords);
   };
 
+  const simulateBackspaceKey = () => {
+    const delKeyEvent = new KeyboardEvent("keydown", {
+      key: "Backspace",
+      keyCode: 8,
+      code: "Backspace",
+    });
+    console.log("Before dispatch");
+    inputRef.current.dispatchEvent(delKeyEvent);
+    console.log("After dispatch");
+  };
+
   // console.log(String(words).split(',').join(""))
 
   const handleKeyClick = (e) => {
     const newWords = [...words];
-    console.log(e.target.textContent);
+    // console.log(e.target.textContent);
     let newValue = e.target.textContent;
 
     // newValue = newValue.replace(/[^a-zA-Z]/g, "");
@@ -63,12 +76,15 @@ function App() {
 
       hanldeKeyDown(enterKeyEvent);
     } else if (newValue === "Del") {
-      const delKeyEvent = new KeyboardEvent("keydown", {
-        key: "Backspace",
-        keyCode: 8,
-        code: "Backspace",
-      });
-      hanldeKeyDown(delKeyEvent);
+      // console.log("yes");
+      // simulateBackspaceKey();
+      // const delKeyEvent = new KeyboardEvent("keydown", {
+      //   key: "Backspace",
+      //   keyCode: 8,
+      //   code: "Backspace",
+      // });
+      // // hanldeKeyDown(delKeyEvent);
+      // inputRef.current.dispatchEvent(delKeyEvent);
     } else {
       if (newWords[turn[0]].length < 5) newWords[turn[0]] += newValue;
       setWords(newWords);
@@ -76,19 +92,23 @@ function App() {
   };
 
   const hanldeKeyDown = (e) => {
+    // console.log(e.nativeEvent)
     // console.log(e.key);
 
     const newTurn = [...turn];
     // console.log(newTurn[0]);
 
-    if (words[turn[0]].length > 0 && words[turn[0]].length < 6) {
-      if (e.key === "Backspace") {
-        const newValue = [...words];
-        const newWord = newValue[turn[0]].slice(0, -1);
-        newValue[0] = newWord;
-        setWords(newValue);
-      }
-    }
+    // if (words[turn[0]].length > 0 && words[turn[0]].length < 6) {
+    //   if (e.key === "Backspace") {
+    //     const newValue = [...words];
+    //     // console.log(words);
+    //     // console.log(newValue);
+    //     // console.log(newValue[turn[0]]);
+    //     const newWord = newValue[turn[0]].slice(0, -1);
+    //     newValue[turn[0]] = newWord;
+    //     setWords(newValue);
+    //   }
+    // }
 
     if (words[turn[0]].length === 5) {
       if (e.key === "Enter") {
@@ -154,6 +174,7 @@ function App() {
           setTurn={setTurn}
           keyHandler={handleKeyClick}
           errMessage={staticMessage}
+          inRef={inputRef}
         />
       </div>
 
