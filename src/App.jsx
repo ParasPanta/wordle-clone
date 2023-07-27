@@ -112,8 +112,19 @@ function App() {
 
     if (words[turn[0]].length === 5) {
       if (e.key === "Enter") {
-        newTurn[0]++;
-        setTurn(newTurn);
+        fiveLetterWords.forEach((value) => {
+          if (words[turn[0]] === value.word) {
+            const checkArray = [...words];
+            checkArray.splice(turn[0], 6 - turn[0]);
+            // console.log(checkArray);
+            if (!checkArray.includes(words[turn[0]])) {
+              newTurn[0]++;
+              setTurn(newTurn);
+            } else {
+              console.log("first");
+            }
+          }
+        });
       }
     }
   };
