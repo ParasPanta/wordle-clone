@@ -146,7 +146,7 @@ function App() {
       {turn[0] !== 6 && (
         <input
           type="text"
-          className="absolute top-1 left-1 h-10 text-md outline-none px-2 opacity-"
+          className="absolute top-1 left-1 h-10 text-md outline-none px-2 opacity-0"
           maxLength={5}
           ref={inputRef}
           value={words[turn[0]]}

@@ -18,6 +18,7 @@ function Keyboard(props) {
             keyHandler={props.keyHandler}
             correctWord={props.correctWord}
             words={props.words}
+            turn={props.turn}
           />
         ))}
       </div>
