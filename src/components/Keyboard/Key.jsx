@@ -48,16 +48,16 @@ function Key(props) {
   const bgColor = !notUsedLetter
     ? correctLetter
       ? correctIndex
-        ? "bg-green-500"
-        : "bg-amber-500"
-      : "bg-gray-500"
+        ? "bg-green-500 text-white"
+        : "bg-amber-500 text-white"
+      : "bg-gray-500 text-white"
     : "bg-slate-200 text-black";
 
   return (
     <>
       <div
         onClick={props.keyHandler}
-        className={`sm:min-w-[2.5rem] sm:min-h-[2.5rem] ${keyDimension} ${bgColor} text-white px-2 rounded-md flex items-center justify-center text-lg sm:text-xl font-bold cursor-pointer `}
+        className={`sm:min-w-[2.5rem] sm:min-h-[2.5rem] ${keyDimension} ${bgColor} px-2 rounded-md flex items-center justify-center text-lg sm:text-xl font-bold cursor-pointer `}
       >
         {props.char}
       </div>
